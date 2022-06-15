@@ -5,11 +5,11 @@ const Contenedor = require('../Contenedor')
 
 const productos = new Contenedor()
 
-router.get('/productos', (req, res) => {
+router.get('/', (req, res) => {
     res.json(productos.getAll())
 })
 
-router.get('/productos/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     const id = Number(req.params.id)
     if(!isNumber(id)){return res.json({ error: "El parámetro no es un número" })}
     const elemento = productos.getById(id)
@@ -17,7 +17,7 @@ router.get('/productos/:id', (req, res) => {
     res.json(elemento)
 })
 
-router.post('/productos', (req, res) => {
+router.post('/', (req, res) => {
     const {title, price, thumbnail} = req.body 
     const elemento = productos.newProduct(title, price, thumbnail)
     res.json(elemento)
@@ -26,7 +26,7 @@ router.post('/productos', (req, res) => {
     // se quito xq genera=> Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
 })
 
-router.put('/productos/:id', (req, res) => {
+router.put('/:id', (req, res) => {
     const {title, price, thumbnail} = req.body
     const id = Number(req.params.id)
     if(!isNumber(id)){return res.json({ error: "El parámetro no es un número" })}
@@ -38,7 +38,7 @@ router.put('/productos/:id', (req, res) => {
     
 })
 
-router.delete('/productos/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     const id = Number(req.params.id)
     if(!isNumber(id)){return res.json({ error: "El parámetro no es un número" })}
     productos.deleteById(id)
